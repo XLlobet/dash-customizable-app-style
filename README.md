@@ -1,11 +1,11 @@
 # Dash Customizable Style App Plugin Using Dash Hooks
 
-Components for Dash applications using Dash Hooks to dinamically change the background color, the text color and the font family styles of your Dash apps. You can check out this project on PyPi at: https://pypi.org/project/
+Components for Dash applications using Dash Hooks to dinamically change the background color, the text color and the font family styles of your Dash apps. You can check out this project on PyPi at: https://pypi.org/project/dash-customizable-app-style/
 
 ## Installation
 
 ```bash
-pip install 
+pip install dash-customizable-app-style 
 ```
 
 ## Usage
