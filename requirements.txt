@@ -2,3 +2,4 @@ dash==3.0.4
 dash-bootstrap-components==2.0.3
 pandas==2.3.0
 numpy==2.2.6
+dash_ag_grid==31.3.1

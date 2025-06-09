@@ -136,3 +136,27 @@ def update_all_figure_styles(bg_color, text_color, font_type, figures):
         updated_figures.append(new_fig)
 
     return updated_figures
+
+@hooks.callback(
+    Output({"type": "grid", "index": ALL}, "rowStyle"),
+    Input("bg_color", "value"),
+    Input("text_color", "value"),
+    Input("font_type", "value"),
+    State({"type": "grid", "index": ALL}, "rowStyle")
+)
+def update_all_grid_styles(bg_color, text_color, font_type, row_styles):
+
+    updated_grid_styles = []
+
+    for row_style in row_styles:
+       
+        new_style = dict(row_style or {})
+
+        # Apply updates
+        new_style["backgroundColor"] = bg_color
+        new_style["color"] = text_color
+        new_style["font-family"] = font_type
+
+        updated_grid_styles.append(new_style)
+
+    return updated_grid_styles
