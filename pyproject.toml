@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dash_customizable_app_style"
-version = "0.0.4"
+version = "0.0.5"
 description = "Customizable background color, text color and font family for Dash applications using Dash Hooks"
 readme = "README.md"
 requires-python = ">=3.8"

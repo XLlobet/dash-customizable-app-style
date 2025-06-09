@@ -1,5 +1,6 @@
-from dash import html, hooks, Input, Output, State, dcc
+from dash import html, hooks, Input, Output, State, dcc, ALL
 import dash_bootstrap_components as dbc
+import copy
 
 # Function to register hooks
 def customize_app_selectors():
@@ -102,3 +103,36 @@ def toggle_app_style_collapse(n1, is_open):
     if n1:
         return not is_open
     return is_open
+
+
+@hooks.callback(
+    Output({"type": "graph", "index": ALL}, "figure"),
+    Input("bg_color", "value"),
+    Input("text_color", "value"),
+    Input("font_type", "value"),
+    State({"type": "graph", "index": ALL}, "figure")
+)
+def update_all_figure_styles(bg_color, text_color, font_type, figures):
+
+    updated_figures = []
+
+    for fig in figures:
+        new_fig                 = copy.deepcopy(fig)
+        layout                  = new_fig.get("layout", {})
+
+        # Update background colors
+        layout["paper_bgcolor"] = bg_color
+        layout["plot_bgcolor"]  = bg_color
+
+        # Safely update font
+        font                    = layout.get("font", {})
+        font["color"]           = text_color
+        font["family"]          = font_type
+        layout["font"]          = font
+
+        # Save updated layout
+        new_fig["layout"]       = layout
+
+        updated_figures.append(new_fig)
+
+    return updated_figures
