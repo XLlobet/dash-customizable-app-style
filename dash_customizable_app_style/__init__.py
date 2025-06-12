@@ -1,4 +1,5 @@
 from dash import html, hooks, Input, Output, State, dcc, ALL
+from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 import copy
 
@@ -107,12 +108,15 @@ def toggle_app_style_collapse(n1, is_open):
 
 @hooks.callback(
     Output({"type": "graph", "index": ALL}, "figure"),
+    Input({"type": "figure-store", "index": ALL}, "data"),
     Input("bg_color", "value"),
     Input("text_color", "value"),
     Input("font_type", "value"),
-    State({"type": "graph", "index": ALL}, "figure")
 )
-def update_all_figure_styles(bg_color, text_color, font_type, figures):
+def update_all_figure_styles(figures, bg_color, text_color, font_type):
+
+    if figures is None:
+        raise PreventUpdate
 
     updated_figures = []
 

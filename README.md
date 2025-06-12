@@ -23,23 +23,31 @@ app.layout = html.Div(
         # Register the app style selectors
         style_plugin.customize_app_selectors(),
 
-        # To be able to also update Figure's or AgGrid's background color, text color
+        # To be able to also update AgGrid's background color, text color
         # and font family, use a pattern-matching ID for them as following.
         dag.AgGrid(id       = {"type": "grid", "index": "your_grid_index"} 
                     # Rest of AgGrid...
                     ),
-        dcc.Graph(  id      = {"type": "graph", "index": "your_line_plot_index"}, 
-                    figure  = your_line_figure_here),
-        dcc.Graph(  id      = {"type": "graph", "index": "your_histogram_plot_index"}, 
-                    figure  = your_histogram_figure_here)
+
+        # To be able to also update Figure's background color, text color
+        # and font family, use a dcc.Store, dcc.Graph and a pattern-matching 
+        # ID for them as following.
+        dcc.Store(id={"type": "figure-store", "index": "line"}),
+        dcc.Graph(id={"type": "graph", "index": "line"}),
+
+        dcc.Store(id={"type": "figure-store", "index": "histogram"}),
+        dcc.Graph(id={"type": "graph", "index": "histogram"})
 
         # Rest of your app code...
     ])
 
 # To update Figures from an @app.callback
 @app.callback(
-    Output({"type": "graph", "index": "line"}, "figure"),
+    Output({"type": "figure-store", "index": "line"}, "data"),
+    Output({"type": "figure-store", "index": "histogram"}, "data"),
     #    Rest of your callback....
+
+    return line.to_dict(), histogram.to_dict()
 ```
 
 ## Install requirements
